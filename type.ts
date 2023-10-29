@@ -1,4 +1,4 @@
-enum Tile {
+enum RawTile {
     AIR,
     FLUX,
     UNBREAKABLE,
@@ -15,4 +15,20 @@ interface Input {
     isUp(): boolean;
     isDown(): boolean;
     handle(): void;
+}
+
+interface Tile {
+    isFlux(): boolean;
+    isUnbreakable(): boolean;
+    isAir(): boolean;
+    isPlayer(): boolean;
+    isStone(): boolean;
+    isFallingStone(): boolean;
+    isBox(): boolean;
+    isFallingBox(): boolean;
+    isKey1(): boolean;
+    isLock1(): boolean;
+    isKey2(): boolean;
+    isLock2(): boolean;
+    color(g: CanvasRenderingContext2D): void;
 }
