@@ -135,6 +135,11 @@ class Flux implements Tile {
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#ccffcc";
     }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#ccffcc";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
 }
 
 class Unbreakable implements Tile {
@@ -189,6 +194,11 @@ class Unbreakable implements Tile {
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#999999";
     }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#999999";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
 }
 
 class Air implements Tile {
@@ -241,6 +251,9 @@ class Air implements Tile {
     }
 
     color(g: CanvasRenderingContext2D): void {}
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    }
 }
 
 class Player implements Tile {
@@ -293,6 +306,9 @@ class Player implements Tile {
     }
 
     color(g: CanvasRenderingContext2D): void {}
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    }
 }
 
 class Stone implements Tile {
@@ -346,6 +362,11 @@ class Stone implements Tile {
 
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#0000cc";
+    }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#0000cc";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 }
 
@@ -401,6 +422,11 @@ class FallingStone implements Tile {
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#0000cc";
     }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#0000cc";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
 }
 
 class Box implements Tile {
@@ -454,6 +480,11 @@ class Box implements Tile {
 
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#8b4513";
+    }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#8b4513";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 }
 
@@ -509,6 +540,11 @@ class FallingBox implements Tile {
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#8b4513";
     }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#8b4513";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
 }
 
 class Key1 implements Tile {
@@ -562,6 +598,11 @@ class Key1 implements Tile {
 
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#ffcc00";
+    }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#ffcc00";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 }
 
@@ -617,6 +658,11 @@ class Lock1 implements Tile {
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#ffcc00";
     }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#ffcc00";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
 }
 
 class Key2 implements Tile {
@@ -670,6 +716,11 @@ class Key2 implements Tile {
 
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#00ccff";
+    }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#00ccff";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 }
 
@@ -725,4 +776,10 @@ class Lock2 implements Tile {
     color(g: CanvasRenderingContext2D): void {
         g.fillStyle = "#00ccff";
     }
+
+    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+        g.fillStyle = "#00ccff";
+        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+
 }
