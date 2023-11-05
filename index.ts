@@ -72,27 +72,25 @@ function moveToTile(newx: number, newy: number) {
 }
 
 function moveHorizontal(dx: number) {
-  if (map[playery][playerx + dx].isFlux()
-    || map[playery][playerx + dx].isAir()) {
-    moveToTile(playerx + dx, playery);
-  } else if ((map[playery][playerx + dx].isStone()
-    || map[playery][playerx + dx].isBox())
-    && map[playery][playerx + dx + dx].isAir()
-    && !map[playery + 1][playerx + dx].isAir()) {
-    map[playery][playerx + dx + dx] = map[playery][playerx + dx];
-    moveToTile(playerx + dx, playery);
-  } else if (map[playery][playerx + dx].isKey1()) {
-    removeLock1()
-    moveToTile(playerx + dx, playery);
-  } else if (map[playery][playerx + dx].isKey2()) {
-    removeLock2()
-    moveToTile(playerx + dx, playery);
-  }
+  map[playery][playerx + dx].moveHorizontal(dx);
+  // if (map[playery][playerx + dx].isEdible()) {
+  //   moveToTile(playerx + dx, playery);
+  // } else if ((map[playery][playerx + dx].isPushable())
+  //   && map[playery][playerx + dx + dx].isAir()
+  //   && !map[playery + 1][playerx + dx].isAir()) {
+  //   map[playery][playerx + dx + dx] = map[playery][playerx + dx];
+  //   moveToTile(playerx + dx, playery);
+  // } else if (map[playery][playerx + dx].isKey1()) {
+  //   removeLock1()
+  //   moveToTile(playerx + dx, playery);
+  // } else if (map[playery][playerx + dx].isKey2()) {
+  //   removeLock2()
+  //   moveToTile(playerx + dx, playery);
+  // }
 }
 
 function moveVertical(dy: number) {
-  if (map[playery + dy][playerx].isFlux()
-    || map[playery + dy][playerx].isAir()) {
+  if (map[playery + dy][playerx].isEdible()) {
     moveToTile(playerx, playery + dy);
   } else if (map[playery + dy][playerx].isKey1()) {
     removeLock1()
