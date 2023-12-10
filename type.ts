@@ -9,6 +9,16 @@ enum RawTile {
     KEY2, LOCK2
 }
 
+// enum FallingState {
+//     FALLING, RESTING
+// }
+
+interface FallingState {
+    isFalling(): boolean;
+    isResting(): boolean;
+    moveHorizontal(tile: Tile, dx: number): void;
+}
+
 interface Input {
     isRight(): boolean;
     isLeft(): boolean;
@@ -22,9 +32,7 @@ interface Tile {
     isUnbreakable(): boolean;
     isAir(): boolean;
     isPlayer(): boolean;
-    isStone(): boolean;
     isFallingStone(): boolean;
-    isBox(): boolean;
     isFallingBox(): boolean;
     isKey1(): boolean;
     isLock1(): boolean;
@@ -36,4 +44,6 @@ interface Tile {
     isPushable(): boolean;
     moveHorizontal(dx: number): void;
     moveVertical(dy: number): void;
+    isStony(): boolean;
+    isBoxy(): boolean;
 }
