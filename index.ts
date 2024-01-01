@@ -26,10 +26,10 @@ function transformTile(tile: RawTile) {
     case RawTile.STONE: return new Stone(new Resting());
     case RawTile.FALLING_STONE: return new Stone(new Falling());
     case RawTile.PLAYER: return new Player();
-    case RawTile.KEY1: return new Key1();
-    case RawTile.LOCK1: return new Lock1();
-    case RawTile.KEY2: return new Key2();
-    case RawTile.LOCK2: return new Lock2();
+    case RawTile.KEY1: return new Key(YELLOW_KEY);
+    case RawTile.LOCK1: return new Lock(YELLOW_KEY);
+    case RawTile.KEY2: return new Key(BLUE_KEY);
+    case RawTile.LOCK2: return new Lock(BLUE_KEY);
     default: assertExhausted(tile);
   }
 }
@@ -44,31 +44,10 @@ function transformMap() {
   }
 }
 
-// function removeLock1() {
-//   let shouldRemove = new RemoveLock1();
-//   for (let y = 0; y < map.length; y++) {
-//     for (let x = 0; x < map[y].length; x++) {
-//       if (shouldRemove.check(map[y][x])) {
-//         map[y][x] = new Air();
-//       }
-//     }
-//   }
-// }
-
 function remove(shouldRemove: RemoveStrategy) {
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
       if (shouldRemove.check(map[y][x])) {
-        map[y][x] = new Air();
-      }
-    }
-  }
-}
-
-function removeLock2() {
-  for (let y = 0; y < map.length; y++) {
-    for (let x = 0; x < map[y].length; x++) {
-      if (map[y][x].isLock2()) {
         map[y][x] = new Air();
       }
     }
