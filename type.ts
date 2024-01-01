@@ -47,4 +47,5 @@ interface Tile {
     rest(): void;
     isFalling(): boolean;
     canFall(): boolean;
+    update(x: number, y: number): void;
 }

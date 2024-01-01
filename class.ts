@@ -120,6 +120,26 @@ class Resting implements FallingState {
     }
 }
 
+class FallStrategy {
+    constructor(private falling: FallingState) {
+    }
+
+    getFalling() {
+        return this.falling;
+    }
+
+    update(tile: Tile ,x: number, y: number) {
+        this.falling = map[y+1][x].isAir() ? new Falling() : new Resting();
+        this.drop(tile, x, y);
+    }
+
+    private drop(tile: Tile, x: number, y: number) {
+        if (this.falling.isFalling()) {
+            map[y+1][x] = tile;
+            map[y][x] = new Air();
+        }
+    }
+}
 
 class Flux implements Tile {
     isAir(): boolean {
@@ -183,20 +203,14 @@ class Flux implements Tile {
         moveToTile(playerx, playery + dy);
     }
 
-    // isBoxy(): boolean {
-    //     return false;
-    // }
-    //
-    // isStony(): boolean {
-    //     return false;
-    // }
-
     drop() {};
     rest() {};
 
     canFall(): boolean {
         return false;
     }
+
+    update(x: number, y: number) {};
 }
 
 class Unbreakable implements Tile {
@@ -265,6 +279,8 @@ class Unbreakable implements Tile {
 
     drop() {};
     rest() {};
+
+    update(x: number, y: number) {};
 }
 
 class Air implements Tile {
@@ -331,6 +347,8 @@ class Air implements Tile {
 
     drop() {};
     rest() {};
+
+    update(x: number, y: number) {};
 }
 
 class Player implements Tile {
@@ -395,11 +413,16 @@ class Player implements Tile {
 
     drop() {};
     rest() {};
+
+    update(x: number, y: number) {};
 }
 
 class Stone implements Tile {
+    private fallStrategy: FallStrategy;
+    // private falling: FallingState;
     constructor(private falling: FallingState) {
-        this.falling = falling;
+        // this.falling = falling;
+        this.fallStrategy = new FallStrategy(falling);
     }
 
     isAir(): boolean {
@@ -407,7 +430,7 @@ class Stone implements Tile {
     }
 
     isFalling(): boolean {
-        return this.falling.isFalling();
+        return this.fallStrategy.getFalling().isFalling();
     }
 
     isFlux(): boolean {
@@ -456,7 +479,8 @@ class Stone implements Tile {
     }
 
     moveHorizontal(dx: number): void {
-        this.falling.moveHorizontal(this, dx);
+        // this.falling.moveHorizontal(this, dx);
+        this.fallStrategy.getFalling().moveHorizontal(this, dx);
     }
 
     moveVertical(dy: number): void {
@@ -472,11 +496,17 @@ class Stone implements Tile {
     rest() {
         this.falling = new Resting();
     };
+
+    update(x: number, y: number) {
+        this.fallStrategy.update(this, x,y);
+    };
 }
 
 class Box implements Tile {
+    private fallStrategy: FallStrategy;
+
     constructor(private falling: FallingState) {
-        this.falling = falling;
+        this.fallStrategy = new FallStrategy(falling);
     }
 
     isAir(): boolean {
@@ -484,7 +514,7 @@ class Box implements Tile {
     }
 
     isFalling(): boolean {
-        return this.falling.isFalling();
+        return this.fallStrategy.getFalling().isFalling();
     }
 
     isFlux(): boolean {
@@ -547,6 +577,16 @@ class Box implements Tile {
     };
     rest() {
         this.falling = new Resting();
+    };
+
+    update(x: number, y: number) {
+        if (map[y+1][x].isAir()) {
+            this.falling = new Falling();
+            map[y+1][x] = this;
+            map[y][x] = new Air();
+        } else if (this.falling.isFalling()) {
+            this.falling = new Resting();
+        }
     };
 }
 
@@ -620,6 +660,8 @@ class Key1 implements Tile {
 
     drop() {};
     rest() {};
+
+    update(x:number, y:number) {};
 }
 
 class Lock1 implements Tile {
@@ -688,6 +730,8 @@ class Lock1 implements Tile {
 
     drop() {};
     rest() {};
+
+    update(x:number, y:number) {};
 }
 
 class Key2 implements Tile {
@@ -760,6 +804,8 @@ class Key2 implements Tile {
 
     drop() {};
     rest() {};
+
+    update(x:number, y:number) {};
 }
 
 class Lock2 implements Tile {
@@ -828,4 +874,6 @@ class Lock2 implements Tile {
 
     drop() {};
     rest() {};
+
+    update(x:number, y:number) {};
 }
