@@ -28,6 +28,10 @@ interface Input {
     handle(): void;
 }
 
+interface RemoveStrategy {
+    check(tile:Tile): boolean;
+}
+
 interface Tile {
     isFlux(): boolean;
     isUnbreakable(): boolean;

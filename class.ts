@@ -141,6 +141,18 @@ class FallStrategy {
     }
 }
 
+class RemoveLock1 implements RemoveStrategy {
+    check(tile: Tile) {
+        return tile.isLock1();
+    }
+}
+
+class RemoveLock2 implements RemoveStrategy {
+    check(tile: Tile) {
+        return tile.isLock2();
+    }
+}
+
 class Flux implements Tile {
     isAir(): boolean {
         return false;
@@ -645,12 +657,14 @@ class Key1 implements Tile {
     }
 
     moveHorizontal(dx: number): void {
-        removeLock1()
+        // removeLock1()
+        remove(new RemoveLock1());
         moveToTile(playerx + dx, playery);
     }
 
     moveVertical(dy: number): void {
-        removeLock1()
+        // removeLock1()
+        remove(new RemoveLock1());
         moveToTile(playerx, playery + dy);
     }
 
@@ -789,12 +803,14 @@ class Key2 implements Tile {
     }
 
     moveHorizontal(dx: number): void {
-        removeLock2()
+        // removeLock2()
+        remove(new RemoveLock2());
         moveToTile(playerx + dx, playery);
     }
 
     moveVertical(dy: number): void {
-        removeLock2()
+        // removeLock2()
+        remove(new RemoveLock2());
         moveToTile(playerx, playery + dy);
     }
 
