@@ -33,8 +33,6 @@ interface Tile {
     isUnbreakable(): boolean;
     isAir(): boolean;
     isPlayer(): boolean;
-    isFallingStone(): boolean;
-    isFallingBox(): boolean;
     isKey1(): boolean;
     isLock1(): boolean;
     isKey2(): boolean;
@@ -45,6 +43,8 @@ interface Tile {
     isPushable(): boolean;
     moveHorizontal(dx: number): void;
     moveVertical(dy: number): void;
-    isStony(): boolean;
-    isBoxy(): boolean;
+    drop(): void;
+    rest(): void;
+    isFalling(): boolean;
+    canFall(): boolean;
 }
