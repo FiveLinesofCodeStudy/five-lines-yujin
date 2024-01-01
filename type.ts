@@ -17,6 +17,7 @@ interface FallingState {
     isFalling(): boolean;
     isResting(): boolean;
     moveHorizontal(tile: Tile, dx: number): void;
+    boxMoveHorizontal(dx: number): void;
 }
 
 interface Input {

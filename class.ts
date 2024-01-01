@@ -93,6 +93,8 @@ class Falling implements FallingState {
 
     moveHorizontal(tile: Tile, dx: number) {
     }
+
+    boxMoveHorizontal(dx: number) {}
 }
 
 class Resting implements FallingState {
@@ -107,6 +109,13 @@ class Resting implements FallingState {
         if (map[playery][playerx+dx+dx].isAir() && !map[playery+1][playerx+dx].isAir()) {
             map[playery][playerx+dx+dx] = tile;
             moveToTile(playerx+dx, playery);
+        }
+    }
+
+    boxMoveHorizontal(dx: number) {
+        if (map[playery][playerx + dx + dx].isAir() && !map[playery + 1][playerx + dx].isAir()) {
+            map[playery][playerx + dx + dx] = map[playery][playerx + dx];
+            moveToTile(playerx + dx, playery);
         }
     }
 }
@@ -478,8 +487,8 @@ class Stone implements Tile {
     }
 }
 
-class FallingStone implements Tile {
-    constructor(private falling: boolean) {
+class Box implements Tile {
+    constructor(private falling: FallingState) {
         this.falling = falling;
     }
 
@@ -488,86 +497,7 @@ class FallingStone implements Tile {
     }
 
     isFallingBox(): boolean {
-        return false;
-    }
-
-    isFallingStone(): boolean {
-        return this.falling;
-    }
-
-    isFlux(): boolean {
-        return false;
-    }
-
-    isKey1(): boolean {
-        return false;
-    }
-
-    isKey2(): boolean {
-        return false;
-    }
-
-    isLock1(): boolean {
-        return false;
-    }
-
-    isLock2(): boolean {
-        return false;
-    }
-
-    isPlayer(): boolean {
-        return false;
-    }
-
-    isUnbreakable(): boolean {
-        return false;
-    }
-
-    color(g: CanvasRenderingContext2D): void {
-        g.fillStyle = "#0000cc";
-    }
-
-    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
-        g.fillStyle = "#0000cc";
-        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-    }
-
-    isEdible(): boolean {
-        return false;
-    }
-
-    isPushable(): boolean {
-        return false;
-    }
-
-    moveHorizontal(dx: number): void {
-        if (this.isFallingStone() === false) {
-            if (map[playery][playerx + dx + dx].isAir() && !map[playery + 1][playerx + dx].isAir()) {
-                map[playery][playerx + dx + dx] = map[playery][playerx + dx];
-                moveToTile(playerx + dx, playery);
-            }
-        } else if (this.isFallingStone() === true) {}
-    }
-
-    moveVertical(dy: number): void {
-    }
-
-    isBoxy(): boolean {
-        return false;
-    }
-
-    isStony(): boolean {
-        return true;
-    }
-}
-
-class Box implements Tile {
-    isAir(): boolean {
-        return false;
-    }
-
-    isFallingBox(): boolean {
-        return false;
+        return this.falling.isFalling();
     }
 
     isFallingStone(): boolean {
@@ -619,83 +549,7 @@ class Box implements Tile {
         return true;
     }
     moveHorizontal(dx: number): void {
-        if (map[playery][playerx + dx + dx].isAir() && !map[playery + 1][playerx + dx].isAir()) {
-            map[playery][playerx + dx + dx] = map[playery][playerx + dx];
-            moveToTile(playerx + dx, playery);
-        }
-    }
-
-    moveVertical(dy: number): void {
-    }
-
-    isBoxy(): boolean {
-        return true;
-    }
-
-    isStony(): boolean {
-        return false;
-    }
-}
-
-class FallingBox implements Tile {
-    isAir(): boolean {
-        return false;
-    }
-
-    isFallingBox(): boolean {
-        return true;
-    }
-
-    isFallingStone(): boolean {
-        return false;
-    }
-
-    isFlux(): boolean {
-        return false;
-    }
-
-    isKey1(): boolean {
-        return false;
-    }
-
-    isKey2(): boolean {
-        return false;
-    }
-
-    isLock1(): boolean {
-        return false;
-    }
-
-    isLock2(): boolean {
-        return false;
-    }
-
-    isPlayer(): boolean {
-        return false;
-    }
-
-    isUnbreakable(): boolean {
-        return false;
-    }
-
-    color(g: CanvasRenderingContext2D): void {
-        g.fillStyle = "#8b4513";
-    }
-
-    draw(g: CanvasRenderingContext2D, x: number, y: number): void {
-        g.fillStyle = "#8b4513";
-        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-    }
-
-    isEdible(): boolean {
-        return false;
-    }
-
-    isPushable(): boolean {
-        return false;
-    }
-
-    moveHorizontal(dx: number): void {
+        this.falling.boxMoveHorizontal(dx);
     }
 
     moveVertical(dy: number): void {

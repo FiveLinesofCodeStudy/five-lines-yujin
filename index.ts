@@ -19,8 +19,8 @@ function assertExhausted(x: never): never {
 function transformTile(tile: RawTile) {
   switch (tile) {
     case RawTile.AIR: return new Air();
-    case RawTile.BOX: return new Box();
-    case RawTile.FALLING_BOX: return new FallingBox()
+    case RawTile.BOX: return new Box(new Resting());
+    case RawTile.FALLING_BOX: return new Box(new Falling());
     case RawTile.FLUX: return new Flux();
     case RawTile.UNBREAKABLE: return new Unbreakable();
     case RawTile.STONE: return new Stone(new Resting());
@@ -112,12 +112,12 @@ function updateTile(x: number, y: number) {
     map[y + 1][x] = new Stone(new Falling());
     map[y][x] = new Air()
   } else if (map[y][x].isBoxy() && map[y + 1][x].isAir()) {
-    map[y + 1][x] = new FallingBox();
+    map[y + 1][x] = new Box(new Falling());
     map[y][x] = new Air()
   } else if (map[y][x].isFallingStone()) {
     map[y][x] = new Stone(new Resting())
   } else if (map[y][x].isFallingBox()) {
-    map[y][x] = new Box();
+    map[y][x] = new Box(new Resting());
   }
 }
 
